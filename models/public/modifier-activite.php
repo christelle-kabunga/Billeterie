@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $date  = $_POST['date'];
     $lieu  = $_POST['lieu'];
     $photo = $_POST['photo_actuelle']; // Par défaut, on garde l'ancienne
+    $prix  = $_POST['prix'];
 
     if (!empty($_FILES['photo']['name'])) {
         $dossier = '../../uploads/activites/';
@@ -23,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    $activite = new Activite($id, $titre, $type, $date, $lieu, $photo);
+    $activite = new Activite($id, $titre, $type, $date, $lieu, $photo, $prix);
     $controller = new ActiviteController($connexion);
 
     if ($controller->modifier($activite)) {

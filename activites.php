@@ -53,12 +53,13 @@ body {
             <h5 class="card-title"><?= htmlspecialchars($a['titre']) ?></h5>
             <p class="card-text">
               <strong>Type :</strong> <?= htmlspecialchars($a['type']) ?><br>
+              <strong>Prix :</strong> <?= htmlspecialchars($a['prix']) ?> FC<br>
               <strong>Date :</strong> <?= htmlspecialchars($a['date']) ?><br>
               <strong>Lieu :</strong> <?= htmlspecialchars($a['lieu']) ?>
             </p>
           </div>
           <div class="card-footer text-center bg-transparent border-0">
-            <a href="inscription.php?activite=<?= $a['id'] ?>" class="btn btn-dark">
+            <a href="views/inscription.php?activite=<?= $a['id'] ?>" class="btn btn-dark">
               Réserver / Acheter un billet <i class="bi bi-ticket-perforated"></i>
             </a>
           </div>

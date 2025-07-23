@@ -15,15 +15,15 @@ class ActiviteController {
     }
 
    public function ajouter(Activite $a) {
-    $sql = "INSERT INTO activite (titre, type, date, lieu, photo) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO activite (titre, type, date, lieu, photo, prix) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $this->connexion->prepare($sql);
-    return $stmt->execute([$a->titre, $a->type, $a->date, $a->lieu, $a->photo]);
+    return $stmt->execute([$a->titre, $a->type, $a->date, $a->lieu, $a->photo, $a->prix]);
 }
 
 public function modifier(Activite $a) {
-    $sql = "UPDATE activite SET titre = ?, type = ?, date = ?, lieu = ?, photo = ? WHERE id = ?";
+    $sql = "UPDATE activite SET titre = ?, type = ?, date = ?, lieu = ?, photo = ?, prix=? WHERE id = ?";
     $stmt = $this->connexion->prepare($sql);
-    return $stmt->execute([$a->titre, $a->type, $a->date, $a->lieu, $a->photo, $a->id]);
+    return $stmt->execute([$a->titre, $a->type, $a->date, $a->lieu, $a->photo,$a->prix, $a->id]);
 }
     public function getById($id) {
         $stmt = $this->connexion->prepare("SELECT * FROM activite WHERE id = ?");

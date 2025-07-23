@@ -35,6 +35,7 @@ $activites = $controller->getAll();
                     <th>#</th>
                     <th>Titre</th>
                     <th>Type</th>
+                    <th>Prix</th>
                     <th>Date</th>
                     <th>Lieu</th>
                     <th>Photo</th>
@@ -48,6 +49,7 @@ $activites = $controller->getAll();
                         <td><?= $i++ ?></td>
                         <td><?= htmlspecialchars($a['titre']) ?></td>
                         <td><?= htmlspecialchars($a['type']) ?></td>
+                        <td><?= htmlspecialchars($a['prix']) ?></td>
                         <td><?= htmlspecialchars($a['date']) ?></td>
                         <td><?= htmlspecialchars($a['lieu']) ?></td>
                         <td><img src="../uploads/activites/<?= $a['photo'] ?>" alt="Photo activité" width="80"></td>
@@ -83,6 +85,8 @@ $activites = $controller->getAll();
 
                     <label class="form-label mt-2">Type</label>
                     <input type="text" name="type" class="form-control" value="<?= htmlspecialchars($a['type']) ?>" required>
+                     <label class="form-label mt-2">Prix</label>
+                    <input type="number" name="prix" class="form-control" value="<?= htmlspecialchars($a['prix']) ?>" required>
 
                     <label class="form-label mt-2">Date</label>
                     <input type="date" name="date" class="form-control" value="<?= $a['date'] ?>" required>
@@ -116,6 +120,9 @@ $activites = $controller->getAll();
 
                     <label class="form-label mt-2">Type</label>
                     <input type="text" name="type" class="form-control" required>
+
+                     <label class="form-label mt-2">prix</label>
+                    <input type="number" name="prix" class="form-control" required>
 
                     <label class="form-label mt-2">Date</label>
                     <input type="date" name="date" class="form-control" required>
