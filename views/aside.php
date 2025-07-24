@@ -23,8 +23,8 @@ require_once('../connexion/connexion.php');
         <ul class="d-flex align-items-center">
             <li class="nav-item dropdown pe-3">
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="<?= isset($_SESSION['image']) ? '../assets/img/profiles/' . $_SESSION['image'] : '../assets/img/default.png'; ?>" class="rounded-circle" width="35" height="35" alt="Profile">
-                    <span class="d-none d-md-block dropdown-toggle ps-2"><?= $_SESSION['noms'] ?? 'Utilisateur' ?></span>
+                    <img src="../assets/image/sm1.jpg" class="rounded-circle" width="35" height="35" alt="Profile">
+                    <span class="d-none d-md-block dropdown-toggle ps-2">Milka</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
@@ -81,6 +81,17 @@ require_once('../connexion/connexion.php');
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="assigner_artistes.php">
+                <i class="bi bi-calendar-event"></i><span>Activités_artistes</span>
+            </a>
+        </li>
+         <li class="nav-item">
+            <a class="nav-link" href="activites_assignees.php">
+                <i class="bi bi-people"></i>
+                <span>Activités assignées</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="artistes.php">
                 <i class="bi bi-mic-fill"></i><span>Artistes</span>
             </a>
@@ -122,12 +133,12 @@ require_once('../connexion/connexion.php');
         <!-- Rapports -->
         <li class="nav-heading">Rapports & Logs</li>
         <li class="nav-item">
-            <a class="nav-link" href="rapport_benefices.php">
+            <a class="nav-link" href="rapport_billets.php">
                 <i class="bi bi-graph-up"></i><span>Rapport de vente</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="logs.php">
+            <a class="nav-link" href="statistiques.php">
                 <i class="bi bi-clock-history"></i><span>Statistiques</span>
             </a>
         </li>

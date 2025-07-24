@@ -11,9 +11,9 @@
     <?php require_once('style.php') ?>
     <style>
     main.body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(../assets/image/A1.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(../assets/image/A2.jpg);
     background-position: center;
-    min-height: calc(100vh - 60px);
+    min-height: calc(110vh - 60px);
     background-size: cover;
     display: flex;
     align-items: center;
@@ -35,7 +35,7 @@
             ainsi que le suivi des artistes et des participants. Pensée pour les organisateurs, vendeurs et visiteurs,<br>
             elle garantit une expérience fluide, rapide et sécurisée pendant tout le festival.
         </p>
-        <a href="activites.php" class="btn btn-outline-primary btn-lg mt-3 p-3">
+        <a href="activites.php" class="btn btn-primary btn-lg mt-3 p-2">
             <b>Voir les activités</b> <i class="bi bi-arrow-right"></i>
         </a>
     </div>

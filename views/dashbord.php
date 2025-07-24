@@ -1,253 +1,134 @@
+<?php
+require_once('../connexion/connexion.php');
+session_start();
+require_once('../vendor/autoload.php'); // Pour DomPDF
+use Dompdf\Dompdf;
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title>Accueil</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+    <title>Dashboard | Festival Amani</title>
     <?php require_once('style.php') ?>
     <style>
-    main.body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(../assets/image/DK6.png);
-    background-position: center;
-    min-height: calc(100vh - 60px);
-    background-size: cover;
-    display: flex;
-    align-items: center;
-}
+        main.main {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(../assets/image/A12.jpg);
+            background-position: center;
+            background-size: cover;
+            min-height: calc(100vh - 60px);
+            padding: 20px;
+        }
     </style>
-
 </head>
 
 <body>
-
-    <?php require_once('aside.php') ?>
-
-    <main id="main" class="main">
-
-<div class="pagetitle">
-  <h1>Dashboard</h1>
-  <nav>
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="index.php">Accueil</a></li>
-      <li class="breadcrumb-item active">Dashboard</li>
-    </ol>
-  </nav>
-</div><!-- End Page Title -->
-
-<!-- dashboard.php -->
-<section class="section dashboard">
-  <div class="row">
-
-    <!-- Cartes principales -->
-    <div class="row">
-
-      <!-- Carte Produits -->
-      <div class="col-xxl-3 col-md-6">
-        <div class="card info-card sales-card">
-          <div class="filter">
-            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-              <li><a class="dropdown-item filter-item" href="#" data-type="produits" data-filter="today">Aujourd'hui</a></li>
-              <li><a class="dropdown-item filter-item" href="#" data-type="produits" data-filter="month">Ce mois</a></li>
-              <li><a class="dropdown-item filter-item" href="#" data-type="produits" data-filter="year">Cette année</a></li>
-              <li><a class="dropdown-item filter-item" href="#" data-type="produits" data-filter="all">Tous</a></li>
-            </ul>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Produits <span id="produits-label">| Ce mois</span></h5>
-            <div class="d-flex align-items-center">
-              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center ">
-                <i class="bi bi-box"></i>
-              </div>
-              <div class="ps-3">
-                <h6 id="produits-val">0 FC</h6>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Carte Stock -->
-      <div class="col-xxl-3 col-md-6">
-        <div class="card info-card revenue-card">
-          <div class="filter">
-            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-              <li><a class="dropdown-item filter-item" href="#" data-type="stock" data-filter="today">Aujourd'hui</a></li>
-              <li><a class="dropdown-item filter-item" href="#" data-type="stock" data-filter="month">Ce mois</a></li>
-              <li><a class="dropdown-item filter-item" href="#" data-type="stock" data-filter="year">Cette année</a></li>
-              <li><a class="dropdown-item filter-item" href="#" data-type="stock" data-filter="all">Tous</a></li>
-            </ul>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Stock <span id="stock-label">| Ce mois</span></h5>
-            <div class="d-flex align-items-center">
-              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center ">
-                <i class="bi bi-archive"></i>
-              </div>
-              <div class="ps-3">
-                <h6 id="stock-val">0 FC</h6>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Carte Ventes -->
-      <div class="col-xxl-3 col-md-6">
-        <div class="card info-card customers-card">
-          <div class="filter">
-            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-              <li><a class="dropdown-item filter-item" href="#" data-type="ventes" data-filter="today">Aujourd'hui</a></li>
-              <li><a class="dropdown-item filter-item" href="#" data-type="ventes" data-filter="month">Ce mois</a></li>
-              <li><a class="dropdown-item filter-item" href="#" data-type="ventes" data-filter="year">Cette année</a></li>
-              <li><a class="dropdown-item filter-item" href="#" data-type="ventes" data-filter="all">Tous</a></li>
-            </ul>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Ventes <span id="ventes-label">| Ce mois</span></h5>
-            <div class="d-flex align-items-center">
-              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center ">
-                <i class="bi bi-cart"></i>
-              </div>
-              <div class="ps-3">
-                <h6 id="ventes-val">0 FC</h6>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Carte Dettes -->
-      <div class="col-xxl-3 col-md-6">
-        <div class="card info-card revenue-card">
-          <div class="filter">
-            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-              <li><a class="dropdown-item filter-item" href="#" data-type="dettes" data-filter="today">Aujourd'hui</a></li>
-              <li><a class="dropdown-item filter-item" href="#" data-type="dettes" data-filter="month">Ce mois</a></li>
-              <li><a class="dropdown-item filter-item" href="#" data-type="dettes" data-filter="year">Cette année</a></li>
-              <li><a class="dropdown-item filter-item" href="#" data-type="dettes" data-filter="all">Tous</a></li>
-            </ul>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Dettes <span id="dettes-label">| Ce mois</span></h5>
-            <div class="d-flex align-items-center">
-              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center ">
-                <i class="bi bi-cash-coin"></i>
-              </div>
-              <div class="ps-3">
-                <h6 id="dettes-val">0 FC</h6>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Carte Dépenses -->
-<div class="col-xxl-3 col-md-6">
-  <div class="card info-card revenue-card">
-    <div class="filter">
-      <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-        <li><a class="dropdown-item filter-item" href="#" data-type="depenses" data-filter="today">Aujourd'hui</a></li>
-        <li><a class="dropdown-item filter-item" href="#" data-type="depenses" data-filter="month">Ce mois</a></li>
-        <li><a class="dropdown-item filter-item" href="#" data-type="depenses" data-filter="year">Cette année</a></li>
-        <li><a class="dropdown-item filter-item" href="#" data-type="depenses" data-filter="all">Tous</a></li>
-      </ul>
+<?php require_once('aside.php'); ?>
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Tableau de bord</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.php">Accueil</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </nav>
     </div>
-    <div class="card-body">
-      <h5 class="card-title">Dépenses <span id="depenses-label">| Ce mois</span></h5>
-      <div class="d-flex align-items-center">
-        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-          <i class="bi bi-wallet2"></i>
+
+    <section class="section dashboard">
+        <div class="row">
+            <!-- Carte billets vendus -->
+            <div class="col-xxl-3 col-md-6">
+                <div class="card info-card revenue-card">
+                    <div class="card-body">
+                        <h5 class="card-title d-flex justify-content-between">
+                            Billets vendus
+                            <a href="rapport_billets.php" class="btn btn-sm btn-dark">📄 Rapport</a>
+                        </h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-ticket-perforated"></i>
+                            </div>
+                            <div class="ps-3">
+                                <?php
+                                $count = $connexion->query("SELECT COUNT(*) FROM billet WHERE statut = 'valide'")->fetchColumn();
+                                ?>
+                                <h6><?= $count ?> billet(s)</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte réservations en attente -->
+            <div class="col-xxl-3 col-md-6">
+                <div class="card info-card warning-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Réservations en attente</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-clock-history"></i>
+                            </div>
+                            <div class="ps-3">
+                                <?php
+                                $attente = $connexion->query("SELECT COUNT(*) FROM billet WHERE statut = 'en_attente'")->fetchColumn();
+                                ?>
+                                <h6><?= $attente ?> billet(s)</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte nombre d'activités -->
+            <div class="col-xxl-3 col-md-6">
+                <div class="card info-card info-card">
+                    <div class="card-body">
+                        <h5 class="card-title d-flex justify-content-between">
+                            Activités
+                            <a href="statistiques.php" class="btn btn-sm btn-dark">📊 Statistiques</a>
+                        </h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-calendar-event"></i>
+                            </div>
+                            <div class="ps-3">
+                                <?php
+                                $nb_activites = $connexion->query("SELECT COUNT(*) FROM activite")->fetchColumn();
+                                ?>
+                                <h6><?= $nb_activites ?> activité(s)</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte visiteurs inscrits -->
+            <div class="col-xxl-3 col-md-6">
+                <div class="card info-card customers-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Visiteurs</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <div class="ps-3">
+                                <?php
+                                $nb_visiteurs = $connexion->query("SELECT COUNT(*) FROM visiteur")->fetchColumn();
+                                ?>
+                                <h6><?= $nb_visiteurs ?> inscrit(s)</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div class="ps-3">
-          <h6 id="depenses-val">0 FC</h6>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    </section>
+</main>
 
-<!-- Carte Paiement Dette -->
-<div class="col-xxl-3 col-md-6">
-  <div class="card info-card customers-card">
-    <div class="filter">
-      <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-        <li><a class="dropdown-item filter-item" href="#" data-type="paiement_dette" data-filter="today">Aujourd'hui</a></li>
-        <li><a class="dropdown-item filter-item" href="#" data-type="paiement_dette" data-filter="month">Ce mois</a></li>
-        <li><a class="dropdown-item filter-item" href="#" data-type="paiement_dette" data-filter="year">Cette année</a></li>
-        <li><a class="dropdown-item filter-item" href="#" data-type="paiement_dette" data-filter="all">Tous</a></li>
-      </ul>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">Paiements Dette <span id="paiement_dette-label">| Ce mois</span></h5>
-      <div class="d-flex align-items-center">
-        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-          <i class="bi bi-credit-card-2-front"></i>
-        </div>
-        <div class="ps-3">
-          <h6 id="paiement_dette-val">0 FC</h6>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    </div><!-- Fin des cartes -->
-  </div>
-</section>
-
-<!-- SCRIPT JavaScript dynamique -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const labels = {
-      today: "Aujourd'hui",
-      month: "Ce mois",
-      year: "Cette année",
-      all: "Tous"
-    };
-
-    // Fonction de chargement des données
-    function chargerDonnees(type, filter) {
-      const label = document.getElementById(type + "-label");
-      if (label) label.textContent = "| " + (labels[filter] || "Tous");
-
-      fetch(`get_data.php?type=${type}&filter=${filter}`)
-        .then(response => response.text())
-        .then(data => {
-          const val = document.getElementById(type + "-val");
-          if (val) val.textContent = data;
-        })
-        .catch(error => console.error('Erreur:', error));
-    }
-
-    // Ajout des écouteurs pour les clics manuels
-    document.querySelectorAll(".filter-item").forEach(function (item) {
-      item.addEventListener("click", function (e) {
-        e.preventDefault();
-        const type = this.getAttribute("data-type");
-        const filter = this.getAttribute("data-filter");
-        chargerDonnees(type, filter);
-      });
-    });
-
-    // ➕ Chargement automatique des données "Aujourd'hui" pour chaque type au chargement
-    ['produits', 'stock', 'ventes', 'dettes', 'depenses', 'paiement_dette'].forEach(type => {
-      chargerDonnees(type, 'today');
-    });
-  });
-</script>
-
-
-
-    <?php require_once('script.php') ?>
+<?php require_once('script.php'); ?>
 </body>
 </html>

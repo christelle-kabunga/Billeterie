@@ -1,46 +1,48 @@
 <?php
 include('connexion/connexion.php');
-//session_start();
-$activites = $connexion->query("SELECT * FROM activite ORDER BY date ASC")->fetchAll(PDO::FETCH_ASSOC);
+
+// Récupérer toutes les activités avec artistes associés
+$requete = $connexion->query("
+    SELECT a.*, GROUP_CONCAT(CONCAT(ar.nom, ' ', ar.prenom) SEPARATOR ', ') AS artistes
+    FROM activite a
+    LEFT JOIN activite_artiste aa ON a.id = aa.activite
+    LEFT JOIN artiste ar ON aa.artiste = ar.id
+    GROUP BY a.id
+");
+$activites = $requete->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <style>
-    .card {
-      background-color: rgba(255, 255, 255, 0.95);
-      color: #000;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      transition: transform 0.2s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    .card-img-top {
-      height: 220px;
-      object-fit: cover;
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
-    }
-    h2.title {
-      color: #000;
-      font-weight: bold;
-      text-shadow: 2px 2px 4px #000;
-    }
-  </style>
-    <title>Login</title>
+    <title>Activités - Festival Amani</title>
+    <?php require_once('views/style.php'); ?>
+    <style>
+        .card {
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #000;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-img-top {
+            height: 220px;
+            object-fit: cover;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        h2.title {
+            color: #000;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px #000;
+        }
+    </style>
 </head>
-<style>
-body {
-    min-height: 100vh;
-}
-</style>
-<?php require_once('views/style.php')?>
 <body class="d-flex justify-content-center align-items-center px-3">
-
 <div class="container py-5">
   <h2 class="text-center mb-5 title">🎤 Activités du Festival Amani</h2>
 
@@ -53,9 +55,14 @@ body {
             <h5 class="card-title"><?= htmlspecialchars($a['titre']) ?></h5>
             <p class="card-text">
               <strong>Type :</strong> <?= htmlspecialchars($a['type']) ?><br>
-              <strong>Prix :</strong> <?= htmlspecialchars($a['prix']) ?> FC<br>
+              <strong>Prix :</strong> <?= number_format($a['prix'], 2) ?> FC<br>
               <strong>Date :</strong> <?= htmlspecialchars($a['date']) ?><br>
-              <strong>Lieu :</strong> <?= htmlspecialchars($a['lieu']) ?>
+              <strong>Lieu :</strong> <?= htmlspecialchars($a['lieu']) ?><br>
+              <?php if (!empty($a['artistes'])): ?>
+                  <strong>Artistes :</strong> <?= htmlspecialchars($a['artistes']) ?>
+              <?php else: ?>
+                  <strong>Artistes :</strong> <em>Aucun artiste assigné</em>
+              <?php endif; ?>
             </p>
           </div>
           <div class="card-footer text-center bg-transparent border-0">
@@ -69,6 +76,4 @@ body {
   </div>
 </div>
 </body>
-
 </html>
-

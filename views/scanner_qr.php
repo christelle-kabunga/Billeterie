@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <label for="code">Code du billet</label>
     <input type="text" name="code" class="form-control mb-3" placeholder="Ex : AMANI-123ABC" required>
     <div class="d-grid">
-        <button class="btn btn-primary">Vérifier le billet</button>
+        <button class="btn btn-dark">Vérifier le billet</button>
     </div>
   </form>
 </div>
