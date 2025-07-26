@@ -3,7 +3,6 @@ session_start();
 require_once('../../connexion/connexion.php');
 require_once('../classes/Utilisateur.php');
 require_once('../controllers/UtilisateurController.php');
-require_once('../functions/logger.php');  // journalisation
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $noms       = $_POST['noms'] ?? '';

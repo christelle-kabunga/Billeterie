@@ -83,7 +83,7 @@ $total = $prix_unitaire * $quantite;
   </div>
 
   <div class="mt-4 d-grid">
-    <a href="index.php" class="btn btn-success">Retour à l’accueil</a>
+    <a href="../activites.php" class="btn btn-success">Retour à l’accueil</a>
   </div>
 </div>
 

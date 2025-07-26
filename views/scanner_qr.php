@@ -1,6 +1,6 @@
 <?php
 require_once('../connexion/connexion.php');
-session_start();
+//session_start();
 
 $message = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

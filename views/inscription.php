@@ -1,6 +1,6 @@
 <?php
+session_start();
 require_once('../connexion/connexion.php');
-//session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom         = trim($_POST['nom']);
@@ -14,10 +14,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Enregistrement du visiteur
-    $stmt = $connexion->prepare("INSERT INTO visiteur (nom, telephone) VALUES (?, ?)");
-    $stmt->execute([$nom, $telephone]);
-    $visiteur_id = $connexion->lastInsertId();
+    // Vérifier si le visiteur existe déjà (ici, par son numéro de téléphone)
+    $stmt = $connexion->prepare("SELECT id FROM visiteur WHERE telephone = ?");
+    $stmt->execute([$telephone]);
+    $visiteur = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($visiteur) {
+        // Le visiteur est déjà inscrit, on récupère son ID
+        $visiteur_id = $visiteur['id'];
+    } else {
+        // Enregistrement du visiteur s'il n'existe pas
+        $stmt = $connexion->prepare("INSERT INTO visiteur (nom, telephone) VALUES (?, ?)");
+        $stmt->execute([$nom, $telephone]);
+        $visiteur_id = $connexion->lastInsertId();
+    }
 
     // Création de la vente
     $stmt = $connexion->prepare("INSERT INTO vente (visiteur, agent, date) VALUES (?, NULL, NOW())");
@@ -62,9 +72,11 @@ if (!$activite) {
 
 <div class="card shadow p-4 col-md-6">
   <h4 class="mb-3 text-center">Réserver pour : <strong><?= htmlspecialchars($activite['titre']) ?></strong></h4>
-  <p><strong>Date :</strong> <?= htmlspecialchars($activite['date']) ?><br>
-     <strong>Lieu :</strong> <?= htmlspecialchars($activite['lieu']) ?><br>
-     <strong>Prix :</strong> <?= number_format($activite['prix'], 2) ?> FC</p>
+  <p>
+    <strong>Date :</strong> <?= htmlspecialchars($activite['date']) ?><br>
+    <strong>Lieu :</strong> <?= htmlspecialchars($activite['lieu']) ?><br>
+    <strong>Prix :</strong> <?= number_format($activite['prix'], 2) ?> FC
+  </p>
 
   <form method="POST">
     <input type="hidden" name="activite_id" value="<?= $activite['id'] ?>">

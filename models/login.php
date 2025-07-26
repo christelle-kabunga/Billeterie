@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL) || empty($password)) {
         $_SESSION['msg'] = "Données invalides.";
-        header("location:../index.php");
+        header("Location: ../index.php");
         exit;
     }
 
@@ -16,21 +16,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user && password_verify($password, $user['mot_de_passe'])) {
-        // Initialisation sécurisée de la session utilisateur
+    if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id']  = $user['id'];
         $_SESSION['noms']     = $user['noms'];
         $_SESSION['fonction'] = $user['role'];
         $_SESSION['image']    = $user['image'] ?? 'default.png';
 
-        header("location:../views/index.php");
+        header("Location: ../views/index.php");
         exit;
     } else {
         $_SESSION['msg'] = "Identifiants incorrects.";
-        header("location:../index.php");
+        header("Location: ../index.php");
         exit;
     }
+} else {
+    header("Location: ../index.php");
+    exit;
 }
-
-header("location:../index.php");
-exit;

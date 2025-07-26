@@ -42,7 +42,26 @@ $activites = $requete->fetchAll(PDO::FETCH_ASSOC);
         }
     </style>
 </head>
-<body class="d-flex justify-content-center align-items-center px-3">
+<body class="px-3">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">🎉 Festival Amani</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarAmani" aria-controls="navbarAmani" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarAmani">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.php">Login</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- CONTENU PRINCIPAL -->
 <div class="container py-5">
   <h2 class="text-center mb-5 title">🎤 Activités du Festival Amani</h2>
 
